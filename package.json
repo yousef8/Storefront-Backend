@@ -12,6 +12,7 @@
   "author": "Yousef Elsayed",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
@@ -19,6 +20,7 @@
     "typescript": "^4.6.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/jasmine": "^3.10.3",
     "@types/node": "^17.0.21",
