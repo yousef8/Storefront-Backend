@@ -6,8 +6,8 @@
   "scripts": {
     "watch": "tsc-watch --esModuleInterop src/server.ts -p ./tsconfig.json --outDir ./dist --onSuccess \"Transpiled Succefully _W_O_W_\"",
     "build": "npx tsc",
-    "test": "jasmine",
-    "migrations-up": "db-migrate db:create store_dev -e create && db-migrate up"
+    "migrations-up": "db-migrate db:create store_dev -e create && db-migrate up",
+    "test": "db-migrate db:drop store_test -e create && db-migrate db:create store_test -e create && db-migrate -e test up && npm run build && jasmine && db-migrate db:drop store_test -e create"
   },
   "author": "Yousef Elsayed",
   "license": "ISC",

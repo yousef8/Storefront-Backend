@@ -10,7 +10,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Index => '/products' [GET]
 - Create [token required] => '/products' [POST]
-- [OPTIONAL] Top 5 most popular products => '/products/five_most_expensive' [GET]
+- [OPTIONAL] Top 5 most popular products
 - [OPTIONAL] Products by category (args: product category) => '/products/:category' [GET]
 
 #### Users
