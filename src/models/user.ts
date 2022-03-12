@@ -71,4 +71,19 @@ export class UserStore {
       throw new Error(`Unable create user cause of: ${err}`);
     }
   }
+
+  async delete(id: number): Promise<User> {
+    try {
+      const conn = await Client.connect();
+      const sql = "DELETE FROM users WHERE id=$1 RETURNING *";
+
+      const result = await conn.query(sql, [id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Unable delete user cause of: ${err}`);
+    }
+  }
 }

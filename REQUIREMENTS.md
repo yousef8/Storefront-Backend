@@ -9,7 +9,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Products
 
 - Index => '/products' [GET]
-- Create [token required] => '/products' [POST]
+- Create [token required] => '/products/create' [POST]
 - Show [token required] => '/products/:id' [GET]
 - Update [token required] => '/products/update/:id' [POST]
 - Delete [token required] => '/products/delete/:id' [DELETE]
@@ -20,7 +20,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Index [token required] => '/users' [GET]
 - Show [token required] => '/users/:id' [GET]
-- Create N[token required] => '/users' [POST]
+- Create N[token required] => '/users/create' [POST]
+- Delete [token required] => '/users/delete/:id' [DELETE]
 
 #### Orders
 
