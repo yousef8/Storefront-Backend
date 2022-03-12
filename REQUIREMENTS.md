@@ -10,6 +10,9 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - Index => '/products' [GET]
 - Create [token required] => '/products' [POST]
+- Show [token required] => '/products/:id' [GET]
+- Update [token required] => '/products/update/:id' [POST]
+- Delete [token required] => '/products/delete/:id' [DELETE]
 - [OPTIONAL] Top 5 most popular products
 - [OPTIONAL] Products by category (args: product category) => '/products/:category' [GET]
 
@@ -47,6 +50,7 @@ Table: Users (id: SERIAL PRIMARY KEY, first_name: VARCHAR(100), last_name: VARCH
 #### Orders
 
 Table: Orders (id: SERIAL PRIMARY KEY, status: VARCHAR(15), user_id: bigint [foreign key to users table])
+
 Table: Order_Products (id: SERIAL PRIMARY KEY, quantity: integer, order_id: bigint [foreign key to orders table], product_id: bigint [foreign key to products table])
 
 - id

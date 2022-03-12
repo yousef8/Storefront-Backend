@@ -40,4 +40,35 @@ describe("Testing Product Model", () => {
       ]);
     });
   });
+
+  describe("Testing show method", () => {
+    it("should return light zaber product with id = 2", async () => {
+      const product = await store.show(2);
+      expect(product).toEqual({
+        id: 2,
+        name: "light zaber",
+        price: 300,
+        category: "nerd",
+      });
+    });
+  });
+
+  describe("Testing update method", () => {
+    it("should return product with id=2 with price 1000", async () => {
+      const product = await store.updatePrice("1000", 2);
+      expect(product.price).toEqual(1000);
+    });
+  });
+
+  describe("Testing delete method", () => {
+    it("should delete product id = 2", async () => {
+      const product = await store.delete(2);
+      expect(product).toEqual({
+        id: 2,
+        name: "light zaber",
+        price: 1000,
+        category: "nerd",
+      });
+    });
+  });
 });

@@ -1,3 +1,5 @@
+import { connect } from "http2";
+import { resourceLimits } from "worker_threads";
 import Client from "../database";
 
 export type Product = {
@@ -38,6 +40,51 @@ export class ProductStore {
       return result.rows[0];
     } catch (err) {
       throw new Error(`Unable create product: ${err}`);
+    }
+  }
+
+  async show(id: number): Promise<Product> {
+    try {
+      const conn = await Client.connect();
+      const sql = "SELECT * FROM products WHERE id = $1";
+
+      const result = await conn.query(sql, [id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Unable to get product cause of: ${err}`);
+    }
+  }
+
+  async updatePrice(value: string, id: number): Promise<Product> {
+    try {
+      const conn = await Client.connect();
+      const sql = "UPDATE products SET price = $1 WHERE id = $2 RETURNING *";
+
+      const result = await conn.query(sql, [value, id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async delete(id: number): Promise<Product> {
+    try {
+      const conn = await Client.connect();
+      const sql = "DELETE FROM products WHERE id=$1 RETURNING *";
+
+      const result = await conn.query(sql, [id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Unable delete product cause of: ${err}`);
     }
   }
 
