@@ -38,6 +38,18 @@ describe("Testing Order Model", () => {
     });
   });
 
+  describe("Testing addProduct method", () => {
+    it("should add one product to order with id = 2", async () => {
+      const product = await store.addProduct(3, 1, 1);
+      expect(product).toEqual({
+        id: 1,
+        quantity: 3,
+        order_id: 1,
+        product_id: 1,
+      });
+    });
+  });
+
   describe("Testing delete method", () => {
     it("should delete completed order with id 2", async () => {
       const order = await store.delete(2);

@@ -28,6 +28,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index [token required] => '/orders' [GET]
 - Create (args: status, user_id) [token required] => '/orders/create' [POST]
 - Delete (args: order id) [token required] => '/orders/delete/:id' [DELETE]
+- Add Product (args: quantity, order id, product id) [token required] => '/orders/:id/add/product' [POST]
 - Current Order by user (args: user id)[token required] => '/orders/active/:userId' [GET]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required] => '/orders/completed/:userId' [GET]
 

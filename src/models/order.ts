@@ -6,6 +6,13 @@ export type Order = {
   user_id: number;
 };
 
+export type orderProduct = {
+  id: number;
+  quantity: number;
+  order_id: number;
+  product_id: number;
+};
+
 export class OrderStore {
   async index(): Promise<Order[]> {
     try {
@@ -50,6 +57,26 @@ export class OrderStore {
       return result.rows[0];
     } catch (err) {
       throw new Error(`Unable delete order: ${err}`);
+    }
+  }
+
+  async addProduct(
+    quantity: number,
+    order_id: number,
+    product_id: number
+  ): Promise<orderProduct> {
+    try {
+      const conn = await Client.connect();
+      const sql =
+        "INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *";
+
+      const result = await conn.query(sql, [quantity, order_id, product_id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Unable add product to order cause of: ${err}`);
     }
   }
 
