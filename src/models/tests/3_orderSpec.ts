@@ -37,4 +37,11 @@ describe("Testing Order Model", () => {
       expect(orders[0].status).toEqual("complete");
     });
   });
+
+  describe("Testing delete method", () => {
+    it("should delete completed order with id 2", async () => {
+      const order = await store.delete(2);
+      expect(order.status).toEqual("complete");
+    });
+  });
 });

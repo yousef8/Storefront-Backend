@@ -9,23 +9,26 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Products
 
 - Index => '/products' [GET]
-- Create [token required] => '/products/create' [POST]
-- Show [token required] => '/products/:id' [GET]
-- Update [token required] => '/products/update/:id' [POST]
-- Delete [token required] => '/products/delete/:id' [DELETE]
+- Create (args: name, price, category) [token required] => '/products/create' [POST]
+- Show (args: product id) [token required] => '/products/:id' [GET]
+- Update (args: updated price, product id) [token required] => '/products/update/:id' [POST]
+- Delete (args: product id) [token required] => '/products/delete/:id' [DELETE]
 - [OPTIONAL] Top 5 most popular products
 - [OPTIONAL] Products by category (args: product category) => '/products/:category' [GET]
 
 #### Users
 
 - Index [token required] => '/users' [GET]
-- Show [token required] => '/users/:id' [GET]
-- Create N[token required] => '/users/create' [POST]
-- Delete [token required] => '/users/delete/:id' [DELETE]
+- Show (args: user id) [token required] => '/users/:id' [GET]
+- Create (args: first_name, last_name, password) N[token required] => '/users/create' [POST]
+- Delete (args: user id) [token required] => '/users/delete/:id' [DELETE]
 
 #### Orders
 
-- Current Order by user (args: user id)[token required] => '/orders/:userId' [GET]
+- Index [token required] => '/orders' [GET]
+- Create (args: status, user_id) [token required] => '/orders/create' [POST]
+- Delete (args: order id) [token required] => '/orders/delete/:id' [DELETE]
+- Current Order by user (args: user id)[token required] => '/orders/active/:userId' [GET]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required] => '/orders/completed/:userId' [GET]
 
 ## Data Shapes

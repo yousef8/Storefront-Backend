@@ -69,7 +69,7 @@ export class ProductStore {
 
       return result.rows[0];
     } catch (err) {
-      throw err;
+      throw new Error(`Unable update price cause of: ${err}`);
     }
   }
 
