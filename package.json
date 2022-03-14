@@ -7,7 +7,8 @@
     "watch": "tsc-watch --esModuleInterop src/server.ts -p ./tsconfig.json --outDir ./dist --onSuccess \"Transpiled Succefully _W_O_W_\"",
     "build": "npx tsc",
     "migrations-up": "db-migrate db:create store_dev -e create && db-migrate up",
-    "test": "db-migrate db:drop store_test -e create && db-migrate db:create store_test -e create && db-migrate -e test up && npm run build && jasmine && db-migrate db:drop store_test -e create"
+    "test": "db-migrate db:drop store_test -e create && db-migrate db:create store_test -e create && db-migrate -e test up && npm run build && jasmine && db-migrate db:drop store_test -e create",
+    "nodemon": "nodemon src/server.ts"
   },
   "author": "Yousef Elsayed",
   "license": "ISC",
@@ -25,10 +26,13 @@
     "@types/jasmine": "^3.10.3",
     "@types/node": "^17.0.21",
     "@types/pg": "^8.6.5",
+    "@types/supertest": "^2.0.11",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "jasmine": "^4.0.2",
     "jasmine-spec-reporter": "^7.0.0",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
     "ts-node": "^10.7.0",
     "tsc-watch": "^4.6.0"
   }

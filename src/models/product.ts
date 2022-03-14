@@ -58,7 +58,7 @@ export class ProductStore {
     }
   }
 
-  async updatePrice(value: string, id: number): Promise<Product> {
+  async updatePrice(value: number, id: number): Promise<Product> {
     try {
       const conn = await Client.connect();
       const sql = "UPDATE products SET price = $1 WHERE id = $2 RETURNING *";

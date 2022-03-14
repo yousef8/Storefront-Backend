@@ -55,7 +55,7 @@ describe("Testing Product Model", () => {
 
   describe("Testing update method", () => {
     it("should return product with id=2 with price 1000", async () => {
-      const product = await store.updatePrice("1000", 2);
+      const product = await store.updatePrice(1000, 2);
       expect(product.price).toEqual(1000);
     });
   });
