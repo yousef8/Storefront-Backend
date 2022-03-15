@@ -8,13 +8,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-- Index => '/products' [GET]
+- Index [token required]=> '/products' [GET]
 - Create (args: name, price, category) [token required] => '/products/create' [POST]
 - Show (args: product id) [token required] => '/products/:id' [GET]
 - Update (args: updated price, product id) [token required] => '/products/update/:id' [PUT]
 - Delete (args: product id) [token required] => '/products/delete/:id' [DELETE]
 - [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category) => '/products/category/:category' [GET]
+- [OPTIONAL] Products by category (args: product category) [token required]=> '/products/category/:category' [GET]
 
 #### Users
 

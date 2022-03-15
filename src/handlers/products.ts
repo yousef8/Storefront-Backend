@@ -1,5 +1,6 @@
 import express from "express";
 import { Product, ProductStore } from "../models/product";
+import { verifyToken } from "../middleware/security";
 
 const store = new ProductStore();
 
@@ -49,12 +50,12 @@ const categoryProducts = async (
 };
 
 const productRoutes = (app: express.Application) => {
-  app.get("/products", index);
-  app.get("/products/:id", show);
-  app.post("/products/create", create);
-  app.put("/products/update/:id", update);
-  app.delete("/products/delete/:id", destroy);
-  app.get("/products/category/:category", categoryProducts);
+  app.get("/products", verifyToken, index);
+  app.get("/products/:id", verifyToken, show);
+  app.post("/products/create", verifyToken, create);
+  app.put("/products/update/:id", verifyToken, update);
+  app.delete("/products/delete/:id", verifyToken, destroy);
+  app.get("/products/category/:category", verifyToken, categoryProducts);
 };
 
 export default productRoutes;

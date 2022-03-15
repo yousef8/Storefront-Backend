@@ -1,5 +1,6 @@
 import { Order, orderProduct, OrderStore } from "../models/order";
 import express, { Request, Response } from "express";
+import { verifyToken } from "../middleware/security";
 
 const store = new OrderStore();
 
@@ -51,12 +52,12 @@ const completedUserOrders = async (req: Request, res: Response) => {
 };
 
 const orderRoutes = (app: express.Application) => {
-  app.get("/orders", index);
-  app.post("/orders/create", create);
-  app.delete("/orders/delete/:id", destroy);
-  app.post("/orders/:id/add/product", addProduct);
-  app.get("/orders/active/:userId", currentUserOrders);
-  app.get("/orders/complete/:userId", completedUserOrders);
+  app.get("/orders", verifyToken, index);
+  app.post("/orders/create", verifyToken, create);
+  app.delete("/orders/delete/:id", verifyToken, destroy);
+  app.post("/orders/:id/add/product", verifyToken, addProduct);
+  app.get("/orders/active/:userId", verifyToken, currentUserOrders);
+  app.get("/orders/complete/:userId", verifyToken, completedUserOrders);
 };
 
 export default orderRoutes;
