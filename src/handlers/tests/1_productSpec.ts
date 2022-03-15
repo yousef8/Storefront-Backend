@@ -14,7 +14,6 @@ describe("Testing User Endpoint", () => {
 
       await conn.query(sqlFirst);
       await conn.query(sqlSecond);
-      console.log("products table reset done");
 
       conn.release();
     } catch (err) {
