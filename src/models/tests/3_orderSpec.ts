@@ -39,7 +39,7 @@ describe("Testing Order Model", () => {
   });
 
   describe("Testing addProduct method", () => {
-    it("should add one product to order with id = 2", async () => {
+    it("should add one product to order with id = 1", async () => {
       const product = await store.addProduct(3, 1, 1);
       expect(product).toEqual({
         id: 1,

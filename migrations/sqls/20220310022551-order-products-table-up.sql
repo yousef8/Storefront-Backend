@@ -1,2 +1,2 @@
 /* Replace with your SQL commands */
-CREATE TABLE order_products (id SERIAL PRIMARY KEY, quantity integer, order_id integer, product_id integer, CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES orders(id), CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(id));
+CREATE TABLE order_products (id SERIAL PRIMARY KEY, quantity integer, order_id integer, product_id integer, CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE, CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE);
