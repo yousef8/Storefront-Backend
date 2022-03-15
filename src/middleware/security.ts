@@ -17,7 +17,6 @@ export function verifyToken(
       token,
       process.env.TOKEN_SECRET as unknown as string
     );
-    console.log(decoded);
     next();
   } catch (err) {
     res.status(401);

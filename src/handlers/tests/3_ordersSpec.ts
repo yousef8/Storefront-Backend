@@ -5,18 +5,21 @@ import app from "../../app";
 const request = supertest(app);
 
 describe("Testing Orders Endpoint", () => {
+  let yousef_token: string;
   beforeAll(async function setDatabase() {
     try {
-      const conn = await Client.connect();
-      const productSql =
-        "INSERT INTO products (name, price, category) VALUES ('rapoo', 500, 'electronics'), ('candySkull', 5000, 'electronics')";
-      const userSql =
-        "INSERT INTO users (first_name, last_name, password) VALUES ('yousef', 'sand', 'password'), ('omar', 'sand', 'password')";
-
-      await conn.query(productSql);
-      await conn.query(userSql);
-
-      conn.release();
+      const res = await request
+        .post("/users/create")
+        .send({ first_name: "yousef", last_name: "doe", password: "password" });
+      yousef_token = res.body.token;
+      await request
+        .post("/products/create")
+        .send({ name: "rapoo", price: 500, category: "electronics" })
+        .auth(yousef_token, { type: "bearer" });
+      await request
+        .post("/products/create")
+        .send({ name: "candySkull", price: 5000, category: "electronics" })
+        .auth(yousef_token, { type: "bearer" });
     } catch (err) {
       throw new Error(`Unable set database for orders endpoint cause: ${err}`);
     }
@@ -97,12 +100,17 @@ describe("Testing Orders Endpoint", () => {
 
   describe("Testing currentUserOrders method", () => {
     it("should return order id 1", async () => {
-      const res = await request.get("/orders/active/1");
+      const res = await request
+        .get("/orders/active/1")
+        .auth(yousef_token, { type: "bearer" });
       expect(res.body[0]).toEqual({ id: 1, status: "active", user_id: 1 });
     });
-
+  });
+  describe("Testing completedUserOrders method", () => {
     it("should return order id 2", async () => {
-      const res = await request.get("/orders/complete/1");
+      const res = await request
+        .get("/orders/complete/1")
+        .auth(yousef_token, { type: "bearer" });
       expect(res.body[0]).toEqual({ id: 2, status: "complete", user_id: 1 });
     });
   });

@@ -4,16 +4,31 @@ import Client from "../../database";
 
 const request = supertest(app);
 
-describe("Testing User Endpoint", () => {
+describe("Testing Product Endpoint", () => {
+  let token: string;
+  beforeAll(async function getToken() {
+    try {
+      const res = await request
+        .post("/users/create")
+        .send({ first_name: "john", last_name: "doe", password: "password" });
+      token = res.body.token;
+    } catch (err) {
+      throw new Error(`Unable get credential cause of: ${err}`);
+    }
+  });
+
   afterAll(async () => {
     try {
       const conn = await Client.connect();
-      const sqlFirst = "DROP TABLE products CASCADE";
+      const sqlFirst = "DROP TABLE products, users CASCADE";
       const sqlSecond =
         "CREATE TABLE products (id SERIAL PRIMARY KEY, name VARCHAR(64) NOT NULL, price integer NOT NULL, category VARCHAR(100))";
+      const sqlThird =
+        "CREATE TABLE users (id SERIAL PRIMARY KEY, first_name VARCHAR(100) NOT NULL, last_name VARCHAR(100), password VARCHAR NOT NULL)";
 
       await conn.query(sqlFirst);
       await conn.query(sqlSecond);
+      await conn.query(sqlThird);
 
       conn.release();
     } catch (err) {
@@ -25,16 +40,20 @@ describe("Testing User Endpoint", () => {
     it("should create first product rapoo mouse", async () => {
       const res = await request
         .post("/products/create")
-        .send({ name: "rapoo mouse", price: 500, category: "electronics" });
+        .send({ name: "rapoo mouse", price: 500, category: "electronics" })
+        .auth(token, { type: "bearer" });
       expect(res.body.id).toEqual(1);
     });
 
     it("should create second product CandySkull headset", async () => {
-      const res = await request.post("/products/create").send({
-        name: "CandySkull Headset",
-        price: 5000,
-        category: "electronics",
-      });
+      const res = await request
+        .post("/products/create")
+        .send({
+          name: "CandySkull Headset",
+          price: 5000,
+          category: "electronics",
+        })
+        .auth(token, { type: "bearer" });
       expect(res.body.id).toEqual(2);
     });
   });
