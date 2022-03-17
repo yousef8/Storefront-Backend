@@ -5,50 +5,74 @@ import { verifyToken } from "../middleware/security";
 const store = new OrderStore();
 
 const index = async (_req: Request, res: Response) => {
-  const orders: Order[] = await store.index();
-  res.json(orders);
+  try {
+    const orders: Order[] = await store.index();
+    res.json(orders);
+  } catch (err) {
+    throw new Error(`Unable operate Endpoint cause of: ${err}`);
+  }
 };
 
 const create = async (req: Request, res: Response) => {
-  const status: string = req.body.status;
-  const userId: number = parseInt(req.body.user_id);
+  try {
+    const status: string = req.body.status;
+    const userId: number = parseInt(req.body.user_id);
 
-  const order: Order = await store.create(status, userId);
-  res.json(order);
+    const order: Order = await store.create(status, userId);
+    res.json(order);
+  } catch (err) {
+    throw new Error(`Unable operate Endpoint cause of: ${err}`);
+  }
 };
 
 const destroy = async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id);
+  try {
+    const id: number = parseInt(req.params.id);
 
-  const order: Order = await store.delete(id);
-  res.json(order);
+    const order: Order = await store.delete(id);
+    res.json(order);
+  } catch (err) {
+    throw new Error(`Unable operate Endpoint cause of: ${err}`);
+  }
 };
 
 const addProduct = async (req: Request, res: Response) => {
-  const quantity: number = parseInt(req.body.quantity);
-  const orderId: number = parseInt(req.params.id);
-  const productId: number = parseInt(req.body.product_id);
+  try {
+    const quantity: number = parseInt(req.body.quantity);
+    const orderId: number = parseInt(req.params.id);
+    const productId: number = parseInt(req.body.product_id);
 
-  const addedProduct: orderProduct = await store.addProduct(
-    quantity,
-    orderId,
-    productId
-  );
-  res.json(addedProduct);
+    const addedProduct: orderProduct = await store.addProduct(
+      quantity,
+      orderId,
+      productId
+    );
+    res.json(addedProduct);
+  } catch (err) {
+    throw new Error(`Unable operate Endpoint cause of: ${err}`);
+  }
 };
 
 const currentUserOrders = async (req: Request, res: Response) => {
-  const userId: number = parseInt(req.params.userId);
+  try {
+    const userId: number = parseInt(req.params.userId);
 
-  const orders: Order[] = await store.currentUserOrders(userId);
-  res.json(orders);
+    const orders: Order[] = await store.currentUserOrders(userId);
+    res.json(orders);
+  } catch (err) {
+    throw new Error(`Unable operate Endpoint cause of: ${err}`);
+  }
 };
 
 const completedUserOrders = async (req: Request, res: Response) => {
-  const userId: number = parseInt(req.params.userId);
+  try {
+    const userId: number = parseInt(req.params.userId);
 
-  const orders: Order[] = await store.completedUserOrders(userId);
-  res.json(orders);
+    const orders: Order[] = await store.completedUserOrders(userId);
+    res.json(orders);
+  } catch (err) {
+    throw new Error(`Unable operate Endpoint cause of: ${err}`);
+  }
 };
 
 const orderRoutes = (app: express.Application) => {

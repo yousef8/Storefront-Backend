@@ -9,66 +9,90 @@ describe("Testing Product Model", () => {
     });
 
     it("index method should return empty array of products", async () => {
-      const products = await store.index();
-      expect(products).toEqual([]);
+      try {
+        const products = await store.index();
+        expect(products).toEqual([]);
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing the create method", () => {
     it("should return the created product", async () => {
-      const product = await store.create("iphone", 50000, "mobiles");
-      expect(product).toEqual({
-        id: 1,
-        name: "iphone",
-        price: 50000,
-        category: "mobiles",
-      });
+      try {
+        const product = await store.create("iphone", 50000, "mobiles");
+        expect(product).toEqual({
+          id: 1,
+          name: "iphone",
+          price: 50000,
+          category: "mobiles",
+        });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing categoryProducts method", () => {
     it("should return list of products", async () => {
-      const products = await store.categoryProducts("mobiles");
-      const product = await store.create("light zaber", 300, "nerd");
-      expect(products).toEqual([
-        {
-          id: 1,
-          name: "iphone",
-          price: 50000,
-          category: "mobiles",
-        },
-      ]);
+      try {
+        const products = await store.categoryProducts("mobiles");
+        const product = await store.create("light zaber", 300, "nerd");
+        expect(products).toEqual([
+          {
+            id: 1,
+            name: "iphone",
+            price: 50000,
+            category: "mobiles",
+          },
+        ]);
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing show method", () => {
     it("should return light zaber product with id = 2", async () => {
-      const product = await store.show(2);
-      expect(product).toEqual({
-        id: 2,
-        name: "light zaber",
-        price: 300,
-        category: "nerd",
-      });
+      try {
+        const product = await store.show(2);
+        expect(product).toEqual({
+          id: 2,
+          name: "light zaber",
+          price: 300,
+          category: "nerd",
+        });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing update method", () => {
     it("should return product with id=2 with price 1000", async () => {
-      const product = await store.updatePrice(1000, 2);
-      expect(product.price).toEqual(1000);
+      try {
+        const product = await store.updatePrice(1000, 2);
+        expect(product.price).toEqual(1000);
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing delete method", () => {
     it("should delete product id = 2", async () => {
-      const product = await store.delete(2);
-      expect(product).toEqual({
-        id: 2,
-        name: "light zaber",
-        price: 1000,
-        category: "nerd",
-      });
+      try {
+        const product = await store.delete(2);
+        expect(product).toEqual({
+          id: 2,
+          name: "light zaber",
+          price: 1000,
+          category: "nerd",
+        });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 });

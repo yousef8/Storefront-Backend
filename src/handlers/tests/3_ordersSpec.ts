@@ -51,74 +51,106 @@ describe("Testing Orders Endpoint", () => {
 
   describe("Testing Create Method", () => {
     it("should create active order", async () => {
-      const res = await request
-        .post("/orders/create")
-        .send({ status: "active", user_id: 1 });
-      expect(res.body).toEqual({ id: 1, status: "active", user_id: 1 });
+      try {
+        const res = await request
+          .post("/orders/create")
+          .send({ status: "active", user_id: 1 });
+        expect(res.body).toEqual({ id: 1, status: "active", user_id: 1 });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
 
     it("should create complete order", async () => {
-      const res = await request
-        .post("/orders/create")
-        .send({ status: "complete", user_id: 1 });
-      expect(res.body).toEqual({ id: 2, status: "complete", user_id: 1 });
+      try {
+        const res = await request
+          .post("/orders/create")
+          .send({ status: "complete", user_id: 1 });
+        expect(res.body).toEqual({ id: 2, status: "complete", user_id: 1 });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing index Method", () => {
     it("should get all orders", async () => {
-      const res = await request.get("/orders");
-      expect(res.body.length).toEqual(2);
+      try {
+        const res = await request.get("/orders");
+        expect(res.body.length).toEqual(2);
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing addProduct Method", () => {
     it("should add first product to active order", async () => {
-      const res = await request
-        .post("/orders/1/add/product")
-        .send({ quantity: 3, product_id: 1 });
-      expect(res.body).toEqual({
-        id: 1,
-        quantity: 3,
-        order_id: 1,
-        product_id: 1,
-      });
+      try {
+        const res = await request
+          .post("/orders/1/add/product")
+          .send({ quantity: 3, product_id: 1 });
+        expect(res.body).toEqual({
+          id: 1,
+          quantity: 3,
+          order_id: 1,
+          product_id: 1,
+        });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
 
     it("should add second product to complete order", async () => {
-      const res = await request
-        .post("/orders/2/add/product")
-        .send({ quantity: 4, product_id: 2 });
-      expect(res.body).toEqual({
-        id: 2,
-        quantity: 4,
-        order_id: 2,
-        product_id: 2,
-      });
+      try {
+        const res = await request
+          .post("/orders/2/add/product")
+          .send({ quantity: 4, product_id: 2 });
+        expect(res.body).toEqual({
+          id: 2,
+          quantity: 4,
+          order_id: 2,
+          product_id: 2,
+        });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing currentUserOrders method", () => {
     it("should return order id 1", async () => {
-      const res = await request
-        .get("/orders/active/1")
-        .auth(yousef_token, { type: "bearer" });
-      expect(res.body[0]).toEqual({ id: 1, status: "active", user_id: 1 });
+      try {
+        const res = await request
+          .get("/orders/active/1")
+          .auth(yousef_token, { type: "bearer" });
+        expect(res.body[0]).toEqual({ id: 1, status: "active", user_id: 1 });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
   describe("Testing completedUserOrders method", () => {
     it("should return order id 2", async () => {
-      const res = await request
-        .get("/orders/complete/1")
-        .auth(yousef_token, { type: "bearer" });
-      expect(res.body[0]).toEqual({ id: 2, status: "complete", user_id: 1 });
+      try {
+        const res = await request
+          .get("/orders/complete/1")
+          .auth(yousef_token, { type: "bearer" });
+        expect(res.body[0]).toEqual({ id: 2, status: "complete", user_id: 1 });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 
   describe("Testing delete method", () => {
     it("should delete complete order", async () => {
-      const res = await request.delete("/orders/delete/2");
-      expect(res.body).toEqual({ id: 2, status: "complete", user_id: 1 });
+      try {
+        const res = await request.delete("/orders/delete/2");
+        expect(res.body).toEqual({ id: 2, status: "complete", user_id: 1 });
+      } catch (err) {
+        throw new Error(`Unable operate test cause of: ${err}`);
+      }
     });
   });
 });
